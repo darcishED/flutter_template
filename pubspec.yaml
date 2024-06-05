@@ -1,0 +1,35 @@
+name: template
+description: "A Flutter template project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  auto_route: ^8.1.3
+  cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.0
+  get_it: ^7.7.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  injectable: ^2.4.2
+  url_strategy: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  auto_route_generator: ^8.0.0
+  build_runner: ^2.4.10
+  flutter_lints: ^4.0.0
+  hive_generator: ^2.0.1
+  injectable_generator: ^2.6.1
+
+flutter:
+  uses-material-design: true
