@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:template/app/constants/string_constants.dart';
 import 'package:template/app/router/app_router.dart';
 
 class AuthGuard extends AutoRouteGuard {
@@ -9,14 +10,15 @@ class AuthGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final box = Hive.box('authBox');
-    final isAuthenticated = box.get('isAuthenticated', defaultValue: false);
+    final box = Hive.box(appConfig);
+    final isAuthenticated = box.get(keyIsAuthenticated, defaultValue: false);
 
     router.removeUntil((route) => false);
 
     if (isAuthenticated) {
       // if user is authenticated we continue
       if (isAuthScreen) {
+        // if user is navigating to an auth screen, we redirect them to the main
         resolver.redirect(const MainRoute());
       } else {
         resolver.next(true);

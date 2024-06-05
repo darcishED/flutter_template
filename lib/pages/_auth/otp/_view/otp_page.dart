@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class OtpPage extends StatelessWidget {
   const OtpPage({super.key});
 
+  // todo
   @override
   Widget build(BuildContext context) => const Center(child: Text('OTP'));
 }

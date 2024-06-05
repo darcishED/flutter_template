@@ -11,7 +11,7 @@ class MainPage extends StatelessWidget {
         routes: const [HomeRoute(), SearchRoute(), LibraryRoute()],
         appBarBuilder: (_, __) => AppBar(
           title: const Text(
-            'eDD',
+            'eDD\'s Template',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w900,

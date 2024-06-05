@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:template/app/constants/string_constants.dart';
 import 'package:template/app/router/app_router.dart';
 
 @RoutePage()
@@ -40,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
             TextFormField(
-              controller: TextEditingController(text: 'ogolah.edward@gmail.co'),
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
@@ -56,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 16.0),
             TextFormField(
-              controller: TextEditingController(text: 'Passwor'),
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Password',
@@ -77,9 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 if (_formKey.currentState!.validate()) {
                   bool authenticated = performLogin(_email, _password);
                   if (!authenticated) {
-                    setState(() {
-                      _showErrorMessage = true;
-                    });
+                    setState(() => _showErrorMessage = true);
                     return;
                   }
                   if (onResult != null) {
@@ -103,7 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 const SizedBox(height: 18),
                 TextButton(
-                  onPressed: () => context.router.navigate(const RegisterRoute()),
+                  onPressed: () =>
+                      context.router.navigate(const RegisterRoute()),
                   child: const Text('Register'),
                 ),
               ],
@@ -115,17 +113,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool performLogin(String email, String password) {
-    // Implement your login logic here using Hive
-    // For example, you can store user credentials in Hive and check if the provided email and password match
-    final box = Hive.box('authBox');
-    final String storedEmail = box.get('email', defaultValue: '');
-    final String storedPassword = box.get('password', defaultValue: '');
+    // Implement your login logic here
+    final box = Hive.box(authConfig);
+    final String storedEmail = box.get(keyEmail, defaultValue: '');
+    final String storedPassword = box.get(keyPassword, defaultValue: '');
 
     if (email == storedEmail && password == storedPassword) {
-      box.put('isAuthenticated', true);
+      box.put(keyIsAuthenticated, true);
       return true; // Authenticated
     } else {
-      box.put('isAuthenticated', false);
+      box.put(keyIsAuthenticated, false);
       return false; // Authentication failed
     }
   }

@@ -8,11 +8,11 @@ class LibraryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AutoTabsRouter.tabBar(
-        homeIndex: 0,
+        homeIndex: 0, // somehow this doesn't work
         routes: const [ShelvesRoute(), InventoryRoute(), FavoritesRoute()],
         builder: (context, child, controller) => DefaultTabController(
           length: 3,
-          initialIndex: 1,
+          initialIndex: 0, // somehow this doesn't work
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(kToolbarHeight),

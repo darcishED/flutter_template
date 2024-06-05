@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:template/app/constants/string_constants.dart';
 import 'package:template/app/router/app_router.dart';
 
 @RoutePage()
@@ -15,7 +16,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
-  String _confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +74,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   return null;
                 },
-                onChanged: (value) {
-                  _confirmPassword = value;
-                },
               ),
               const SizedBox(height: 24.0),
               ElevatedButton(
@@ -95,10 +92,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  // these functions should be implemented in bloc
   void registerUser(String email, String password) {
-    final box = Hive.box('authBox');
-    box.put('email', email);
-    box.put('password', password);
+    final box = Hive.box(authConfig);
+    box.put(keyEmail, email);
+    box.put(keyPassword, password);
 
     // Show a success message or navigate to another screen
     ScaffoldMessenger.of(context).showSnackBar(
