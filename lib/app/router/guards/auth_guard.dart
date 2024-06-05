@@ -10,7 +10,7 @@ class AuthGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final box = Hive.box(appConfig);
+    final box = Hive.box(authConfig);
     final isAuthenticated = box.get(keyIsAuthenticated, defaultValue: false);
 
     router.removeUntil((route) => false);
