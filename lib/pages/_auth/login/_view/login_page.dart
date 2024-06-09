@@ -33,80 +33,80 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.all(16.0),
       child: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            const SizedBox(height: 56),
-            const Text(
-              'Login',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Email',
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 56),
+              const FlutterLogo(size: 56),
+              const SizedBox(height: 36),
+              const Text(
+                'Login',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your email';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                _email = value;
-              },
-            ),
-            const SizedBox(height: 16.0),
-            TextFormField(
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Password',
+              const SizedBox(height: 36),
+              TextFormField(
+                decoration:
+                    const InputDecoration(labelText: 'Email or username'),
+                validator: (value) {
+                  if (value!.isEmpty) return 'Please enter your email';
+                  return null;
+                },
+                onChanged: (value) => _email = value,
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your password';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                _password = value;
-              },
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  bool authenticated = performLogin(_email, _password);
-                  if (!authenticated) {
-                    setState(() => _showErrorMessage = true);
-                    return;
-                  }
-                  if (onResult != null) {
-                    onResult!(authenticated);
-                  } else {
-                    context.router.navigate(const MainRoute());
-                  }
-                }
-              },
-              child: const Text('Login'),
-            ),
-            Column(
-              children: [
-                if (_showErrorMessage)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Login failed! Please try again or register if you don\'t have an account yet',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                const SizedBox(height: 18),
-                TextButton(
-                  onPressed: () =>
-                      context.router.navigate(const RegisterRoute()),
-                  child: const Text('Register'),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
                 ),
-              ],
-            )
-          ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  _password = value;
+                },
+              ),
+              const SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    bool authenticated = performLogin(_email, _password);
+                    if (!authenticated) {
+                      setState(() => _showErrorMessage = true);
+                      return;
+                    }
+                    if (onResult != null) {
+                      onResult!(authenticated);
+                    } else {
+                      context.router.navigate(const MainRoute());
+                    }
+                  }
+                },
+                child: const Text('Login'),
+              ),
+              Column(
+                children: [
+                  if (_showErrorMessage)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'Login failed! Please try again or register if you don\'t have an account yet',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  const SizedBox(height: 18),
+                  TextButton(
+                    onPressed: () =>
+                        context.router.navigate(const RegisterRoute()),
+                    child: const Text('Register'),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
